@@ -1,0 +1,13 @@
+<form onsubmit="return false;" id="globalConfigForm" action="#(action)" method="post">
+	#if(globalConfig.id??)
+		<input type="hidden" name="globalConfig.id" value="#(globalConfig.id)" />
+		<input type="hidden" name="globalConfig.configKey" value="#(globalConfig.configKey)" />
+	#end
+	<div class="form-group">
+		<label>请输入配置项Value</label>
+		<input type="text" autocomplete="off"  class="form-control" data-rule="required" data-tips="请输入值" maxlength="255" name="globalConfig.configValue" value="#(globalConfig.configValue??)">
+	</div>
+</form>
+#define js()
+#include("/_view/_admin/common/_formjs.html",formId="globalConfigForm")
+#end

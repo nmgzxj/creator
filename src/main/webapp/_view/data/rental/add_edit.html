@@ -1,0 +1,188 @@
+#@adminLayout()
+#define main()
+<script src="/assets/js/jquery.min.js"></script>
+<div class="jbolt_page" data-key="#(pmkey??)">
+	<div class="jbolt_page_title">
+		<div class="row">
+			<div class="col-12">
+				<h1><a class="btn btn-outline-secondary mr-1" href="javascript:history.go(-1)"><i class="fa fa-chevron-left"></i></a> 租户管理-#(rental==null?"添加新":"编辑")租户</h1>
+			</div>
+		</div>
+	</div>
+	<div class="jbolt_page_content">
+
+		<div class="mallGoodsForm">
+			<!-- 基础信息 start -->
+			<div class="tab-pane fade show active" id="nav-base" role="tabpanel" aria-labelledby="nav-base-tab">
+				<form class="form"   action="/admin/data/rental/#(rental==null?"save":"update")" method="post" onsubmit="return ajaxSubmitForm(this)">
+					#if(rental.id??)
+					<input type="hidden" name="rental.id" value="#(rental.id??)" />
+					#end
+
+					<div class="form-group row">
+						<label class="col-form-label col-2 col-sm-3 text-right">纳税人识别号:</label>
+						<div class="col-7 col-sm-6">
+							<input type="text" autocomplete="off" class="form-control" data-rule="required;len<=200" placeholder="请输入纳税人识别号" data-tips="请输入纳税人识别号" maxlength="200" name="rental.taxId" value="#(rental.taxId??)">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-form-label col-2 col-sm-3 text-right">公司名称:</label>
+						<div class="col-7 col-sm-6">
+							<input type="text"  autocomplete="off" min="0"   class="form-control" data-rule="required;len<=200" placeholder="请输入公司名称" data-tips="请输入公司名称" maxlength="200" name="rental.companyName" value="#(rental.companyName??)">
+						</div>
+					</div>
+
+					<div class="form-group row">
+						<label class="col-form-label col-2 col-sm-3 text-right">注册地址:</label>
+						<div class="col-7 col-sm-6">
+							<input type="text"  autocomplete="off" min="0" class="form-control"  placeholder="请输入注册地址" maxlength="200" name="rental.regAddress" value="#(rental.regAddress??)">
+						</div>
+					</div>
+
+				<div class="form-group row">
+					<label class="col-form-label col-2 col-sm-3 text-right">法人:</label>
+					<div class="col-7 col-sm-6">
+						<input type="text"  autocomplete="off" min="0" class="form-control"placeholder="请输入法人" maxlength="20" name="rental.representativeName" value="#(rental.representativeName??)">
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label class="col-form-label col-2 col-sm-3 text-right">联系电话:</label>
+					<div class="col-7 col-sm-6">
+						<input type="text"  autocomplete="off" min="0" class="form-control" placeholder="请输入联系电话" maxlength="200" name="rental.representativePhone" value="#(rental.representativePhone??)">
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label class="col-form-label col-2 col-sm-3 text-right">代办人电话:</label>
+					<div class="col-7 col-sm-6">
+						<input type="text"  autocomplete="off" min="0" class="form-control" placeholder="请输入代办人电话" maxlength="200" name="rental.agentNamePhone" value="#(rental.agentNamePhone??)">
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label class="col-form-label col-2 col-sm-3 text-right">首租时间:</label>
+					<div class="col-7 col-sm-6">
+						<input type="date"  autocomplete="off" min="0" class="form-control" placeholder="请输入首租时间" maxlength="20" name="rental.firstRentalDate" value="#(rental.firstRentalDate??)">
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label class="col-form-label col-2 col-sm-3 text-right">地址出处:</label>
+					<div class="col-7 col-sm-6">
+						<input type="text"  autocomplete="off" min="0" class="form-control" placeholder="请输入地址出处" maxlength="20" name="rental.addressFrom" value="#(rental.addressFrom??)">
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label class="col-form-label col-2 col-sm-3 text-right">费用:</label>
+					<div class="col-7 col-sm-6">
+						<input type="number"  autocomplete="off" min="0" class="form-control" data-rule="pznumber;len<=10" data-notnull="false" placeholder="请输入费用" data-tips="请输入费用" maxlength="10" name="rental.cost" value="#(rental.cost??)">
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label class="col-form-label col-2 col-sm-3 text-right">续费时间:</label>
+					<div class="col-7 col-sm-6">
+						<input type="date"  autocomplete="off" min="0" class="form-control"  maxlength="20" name="rental.costDate" value="#(rental.costDate??)">
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label class="col-form-label col-2 col-sm-3 text-right">有无税控:</label>
+					<div class="col-7 col-sm-6">
+						<select class="form-control" name="rental.hasTaxControl" data-url="/admin/dictionary/options?key=taxControl"  data-autoload data-text="=请选择=" data-value="" data-select="#(rental.hasTaxControl??)">
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label class="col-form-label col-2 col-sm-3 text-right">公司性质:</label>
+					<div class="col-7 col-sm-6">
+						<select class="form-control" name="rental.companyAttrib" data-url="/admin/dictionary/options?key=companyAttrib"  data-autoload data-text="=请选择=" data-value="" data-select="#(rental.companyAttrib??)">
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label class="col-form-label col-2 col-sm-3 text-right">经营项目:</label>
+					<div class="col-7 col-sm-6">
+						<input type="text"  autocomplete="off" min="0" class="form-control" placeholder="请输入经营项目" maxlength="200" name="rental.companyProject" value="#(rental.companyProject??)">
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label class="col-form-label col-2 col-sm-3 text-right">付款方式:</label>
+					<div class="col-7 col-sm-6">
+						<select class="form-control" name="rental.payType"  data-url="/admin/dictionary/options?key=payType"  data-autoload data-text="=请选择=" data-value="" data-select="#(rental.payType??)">
+						</select>
+					</div>
+				</div>
+
+				<div class="form-group row">
+					<label class="col-form-label col-2 col-sm-3 text-right">备注</label>
+					<div class="col-7 col-sm-6">
+						<input type="text"  autocomplete="off" min="0" class="form-control" placeholder="请输入备注" maxlength="1000" name="rental.memo" value="#(rental.memo??)">
+					</div>
+				</div>
+
+					<div class="form-group text-center">
+						<button type="submit" class="btn btn-success" style="width:150px"><i class="fa fa-check mr-2"></i>提交</button>
+					</div>
+				</form>
+
+			</div>
+			<!-- 基础信息 end -->
+
+
+
+		</div>
+
+	</div>
+</div>
+</div>
+#end
+#define js()
+<script>
+    function sleep(milliseconds) {
+        setTimeout(function(){
+            var start = new Date().getTime();
+            while ((new Date().getTime() - start) < milliseconds){
+                // Do nothing
+            }
+        },0);
+    }
+
+    function ajaxSubmitForm(formEle){
+        var form=$(formEle);
+        if(FormChecker.check(form)){
+            var url=form.action;
+            form.ajaxSubmit({
+                type:"post",
+                url:url,
+                success:function(ret){
+                    if(ret.state=="ok"){
+
+                        LayerMsgBox.success(ret.msg,500);
+
+                    }else{
+                        LayerMsgBox.error(ret.msg);
+                    }
+                }
+            });
+        }
+
+        return false;
+
+    }
+
+    function ajaxSubmitHtmlContentForm(formEle){
+
+        return ajaxSubmitForm(formEle)
+    }
+
+
+</script>
+#end
+

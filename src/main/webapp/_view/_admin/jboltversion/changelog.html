@@ -1,0 +1,100 @@
+#@adminDialogLayout()
+#define main()
+<div class="jbolt_page">
+<div class="jbolt_page_content">
+<form onsubmit="return false;" id="changelogForm" action="/admin/jboltversion/changelog/submit" method="post">
+	#if(changelog.id??)
+		<input type="hidden" name="changelog.id" value="#(changelog.id)" />
+	#end
+		<input type="hidden" name="changelog.jboltVersionId" value="#(jboltVersionId??)" />
+	<div style="display:none">
+		<textarea id="changelogContent_hidden" class="form-control" data-rule="required" placeholder="请输入changelog内容" data-tips="请输入changelog内容" maxlength="10000"  name="changelog.content" >#(changelog.content??)</textarea>
+	</div>
+	<div class="form-group">
+		<textarea id="changelogContent" class="form-control"  placeholder="请输入changelog内容"  maxlength="10000"   >#(changelog.content??)</textarea>
+	</div>
+	 
+</form>
+
+</div>
+</div>
+#end
+
+#define js()
+<script>
+needPjax=false;
+function submitThisForm(successCallback){
+	var formId="changelogForm";
+	var form=$("#"+formId);
+	$("#changelogContent_hidden").val($("#changelogContent").val());
+	if(FormChecker.check(form)){
+		var url=form.action;
+		form.ajaxSubmit({
+			type:"post",
+			url:url,
+			success:function(ret){
+				if(ret.state=="ok"){
+					LayerMsgBox.success(ret.msg,500,function(){
+						if(successCallback){
+							successCallback();
+						}
+					});
+				}else{
+					LayerMsgBox.error(ret.msg);
+				}
+			}
+		});
+	}
+}
+function sendFile(file){
+	var url="admin/jboltversion/uploadImg";
+	 var fileSize=(file.size/1024).toFixed(2);
+	  var fd = new FormData();
+	    fd.append("img", file);
+	    $.ajax({
+	        type:"post",
+	        url: url,
+	        data: fd,
+	        timeout : 60000, //超时时间设置，单位毫秒
+	        cache:false, 
+	        async:false, 
+	        processData: false,
+	        contentType: false,
+	        success:function (res) {
+	        	if(res.state=="ok"){
+	        		if(res.data){
+	        			$("#changelogContent").summernote('insertImage', res.data);
+	        		}
+	        		LayerMsgBox.success("上传成功",1000);
+	        	}else{
+	        		LayerMsgBox.error(res.msg,1000);
+	        	}
+	        },
+	        error:function (err) {
+	        	LayerMsgBox.error("网络异常",1000);
+	        }
+	    });
+	
+}
+$("#changelogContent").summernote({
+	lang:"zh-CN",
+	height:"500px",
+	 // toolbar工具栏默认
+	  toolbar: [
+	    ['style', ['style']],
+	    ['font', ['bold', 'underline', 'clear']],
+	    ['fontname', ['fontname']],
+	    ['color', ['color']],
+	    ['para', ['ul', 'ol', 'paragraph']],
+	    ['table', ['table']],
+	    ['insert', ['link', 'picture']],
+	  ],
+	  callbacks: {
+          onImageUpload: function(files, editor, $editable) {
+              sendFile(files[0]);
+          }
+      }
+	  
+	});
+</script>
+#end

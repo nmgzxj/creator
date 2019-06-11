@@ -1,0 +1,12 @@
+<form onsubmit="return false;" id="goodsTypeForm" action="#(action)" method="post">
+	#if(goodsType.id??)
+		<input type="hidden" name="goodsType.id" value="#(goodsType.id)" />
+	#end
+	<div class="form-group">
+		<label>请输入名称</label>
+		<input type="text" autocomplete="off" autofocus="autofocus"  class="form-control" data-rule="required;len<=100" data-tips="请输入名称" maxlength="100" name="goodsType.name" value="#(goodsType.name??)">
+	</div>
+</form>
+#define js()
+#include("/_view/_admin/common/_formjs.html",formId="goodsTypeForm")
+#end

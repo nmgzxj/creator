@@ -1,0 +1,13 @@
+#@adminLayout()
+#define main()
+<div class="jbolt_page" data-key="coreinfomgr">
+<div class="jbolt_page_content">
+ 	<div style="margin: 20px auto;max-width: 500px">
+			<div class="alert alert-danger">#(msg??)</div>
+			#if(backUrl??)
+			<a class="btn btn-primary" href="#(backUrl??)">#(backText?? '← 返回')</a>
+			#end
+		</div>
+</div>
+</div>
+#end

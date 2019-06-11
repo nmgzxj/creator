@@ -1,0 +1,12 @@
+<form onsubmit="return false;" id="roleForm" action="#(action)" method="post">
+	#if(role.id??)
+		<input type="hidden" name="role.id" value="#(role.id)" />
+	#end
+	<div class="form-group">
+		<label>请输入名称</label>
+		<input type="text" autocomplete="off" autofocus="autofocus"  class="form-control" data-rule="required;len<=100;" data-tips="请输入角色名称 如有多个 用空格隔开" maxlength="100" name="role.name" value="#(role.name??)">
+	</div>
+</form>
+#define js()
+#include("/_view/_admin/common/_formjs.html",formId="roleForm")
+#end

@@ -1,0 +1,25 @@
+<script>
+needPjax=false;
+function submitThisForm(successCallback){
+	var formId="#(formId)";
+	var form=$("#"+formId);
+	if(FormChecker.check(form)){
+		var url=form.action;
+		form.ajaxSubmit({
+			type:"post",
+			url:url,
+			success:function(ret){
+				if(ret.state=="ok"){
+					LayerMsgBox.success(ret.msg,500,function(){
+						if(successCallback){
+							successCallback();
+						}
+					});
+				}else{
+					LayerMsgBox.error(ret.msg);
+				}
+			}
+		});
+	}
+}
+</script>

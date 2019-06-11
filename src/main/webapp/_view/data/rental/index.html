@@ -1,0 +1,139 @@
+#@adminLayout()
+#define main()
+<div class="jbolt_page" data-key="#(pmkey??)">
+	<div class="jbolt_page_title">
+		<div class="row">
+			<div class="col-7">
+				<h1>测试企业管理</h1>
+				<span>#(pageData.totalRow?? 0) 条记录</span>
+				<input type="hidden" id="totalPage" value="#(pageData.totalPage)"/>
+				<input type="hidden" id="pageNumber" value="#(pageData.pageNumber)"/>
+				<form class="form-inline" id="areaForm" action="/admin/data/rental"  data-pjaxsubmit  method="get">
+					<input type="hidden" name="isDelete" value="#(isDelete?? false)"/>
+					<input type="text" autocomplete="off"  class="form-control"  placeholder="输入关键字搜索" name="keywords" value="#(keywords??)" />
+					<select class="form-control" name="hasTaxControl" data-url="/admin/dictionary/options?key=taxControl"  data-autoload data-text="=有无税控=" data-value="" data-select="#(hasTaxControl??)"></select>
+					<select class="form-control" name="companyAttrib" data-url="/admin/dictionary/options?key=companyAttrib"  data-autoload data-text="=公司性质=" data-value="" data-select="#(companyAttrib??)"></select>
+					<select class="form-control" name="payType"  data-url="/admin/dictionary/options?key=payType"  data-autoload data-text="=付款方式=" data-value="" data-select="#(payType??)">	</select>
+					<button  type="button"  onclick="normalData()" class="btn btn-light" ><i class="fa fa-search"></i> 查询</button>
+					<!--<button  type="button" onclick="trashData()" class="btn btn-#((isDelete?? && isDelete=="true")?'danger':'light')" ><i class="fa fa-trash"></i> 回收站(#(deleteCount?? 0))</button>-->
+				</form>
+			</div>
+			<div class="col-5">
+				<a data-pjax href="/admin/data/rental/add" class="pull-right btn btn-success mr-1" style="width:70px;" ><i class="fa fa-plus"></i> 添加</a>
+				<a href="/admin/data/rental/export" class="pull-right btn btn-info mr-1" style="width:70px;" ><i class="fa fa-file-excel-o"></i> 导出</a>
+				<form action="/admin/data/rental/importExcel" enctype="multipart/form-data"  method="post" class="pull-right">
+					<input type="file" name="file">
+				<button type="submit" class="pull-right btn btn-info mr-1" style="width:70px;" ><i class="fa fa-file-excel-o"></i> 导入</button>
+				</form>
+			</div>
+		</div>
+	</div>
+	<div class="jbolt_page_content">
+		<div class="row">
+			<div class="col">
+				<table class="table table-bordered table-hover table-striped table-center">
+					<thead>
+					<tr>
+						<th style="width: 70px">编号</th>
+						<th style="width:200px;">纳税人识别号</th>
+						<th style="min-width: 200px">公司名称</th>
+						<th style="min-width:80px">注册地址</th>
+						<th style="min-width:80px">法人</th>
+						<th style="width:100px">联系电话</th>
+						<th>代办人电话</th>
+						<th>续费时间</th>
+						<th  style="width: 120px">操作</th>
+					</tr>
+
+					</thead>
+					<tbody>
+					#for(data:pageData.list)
+					<tr>
+						<td>#(data.id)</td>
+						<td>#(data.taxId)</td>
+						<td>#(data.companyName)</td>
+						<td>#(data.regAddress)</td>
+						<td>#(data.representativeName)</td>
+						<td>#(data.representativePhone)</td>
+						<td>#(data.agentNamePhone)</td>
+						<td>
+							#if(data.costDate.compareTo(DateUtil.getNowDate())<0)
+								<span style="color: red;">#(data.costDate)</span>
+							#else
+								#(data.costDate)
+							#end
+						</td>
+						<td>
+							<a  tooltip  title="编辑"  href="/admin/data/rental/edit/#(data.id)"  data-pjax class="jbolt_table_btn"><i class="fa fa-pencil c-primary"></i></a>
+							<a  tooltip  title="删除"  href="/admin/data/rental/delete/#(data.id)" data-handler="refreshPjaxContainer" data-confirm="确定删除此本数据？" class="jbolt_table_delbtn"><i class="fa fa-remove c-danger"></i></a>
+
+						</td>
+					</tr>
+					#end
+					</tbody>
+				</table>
+				#include("../../_admin/common/_page.html",pageEleId="areaPage")
+			</div>
+
+		</div>
+	</div>
+</div>
+#end
+#define css()
+<link href="/assets/plugins/jstree/themes/default/style.min.css" rel="stylesheet">
+#end
+#define js()
+<script type="text/javascript">
+    /**
+     * 区域管理 后台页面 JS
+     */
+    var areaForm=$("#areaForm");
+
+    /**
+     * 普通查询
+     */
+    function normalData(){
+        areaForm.find("[name='isDelete']").val(false);
+        areaForm.submit();
+    }
+    /**
+     * 查回收站
+     */
+    function trashData(){
+        areaForm.find("[name='isDelete']").val(true);
+        areaForm.submit();
+    }
+
+    $(function(){
+        var totalPage=$("#totalPage").val();
+        var pageNumber=$("#pageNumber").val();
+        initPage("areaPage",totalPage,pageNumber,"areaForm");
+        //readGoodsBackCategoryTree();
+    });
+
+    function checkForm() {
+
+        var file = $("#file").val();
+        if(!file){
+            LayerMsgBox("请选择文件后上传。");
+            return false;
+		}
+        //检测后缀名
+		var  index = file.lastIndexOf(".");
+        if(index<0){
+            LayerMsgBox("上传的文件格式不正确，请选择Excel文件。");
+            return false;
+		}
+        else{
+            var ext = file.substr(index+1, file.length);
+            if("xls"!=ext && "xlsx"!=ext){
+                LayerMsgBox("上传的文件格式不正确，请选择Excel文件。");
+                return false;
+			}
+		}
+        return true;
+    }
+</script>
+
+#end
+

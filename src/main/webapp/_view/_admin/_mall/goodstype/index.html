@@ -1,0 +1,53 @@
+#@adminLayout()
+#define main()
+<div class="jbolt_page" data-key="#(pmkey)">
+<div class="jbolt_page_title">
+	<div class="row">
+	<div class="col-9">
+	<h1>商品类型管理</h1>
+	<span> #(goodsTypes.size()) 条记录</span>
+	</div>
+	<div class="col-3">
+		<button data-area="400,260" data-scroll="yes" data-handler="refreshPjaxContainer" data-title="新增商品类型" data-url="/admin/mall/goodstype/add" class="pull-right jbolt_table_addbtn btn btn-success" ><i class="fa fa-plus"></i> 新增</button>
+	</div>
+	</div>
+</div>
+<div class="jbolt_page_content">
+<table class="table table-bordered table-hover table-striped table-center">
+<thead>
+<tr><th style="width: 60px">编号</th><th style="width: 200px">类型名称</th><th style="width:120px;">规格管理</th><th style="width:120px;">属性管理</th><th style="width:120px;">关联品牌</th><th style="width:120px;">启用/禁用</th><th  style="width: 120px">操作</th><th></th></tr>
+</thead>
+<tbody>
+#for(data:goodsTypes)
+<tr>
+<td>#(for.index+1)</td>
+<td>#(data.name??)</td>
+<td>
+<a  tooltip    href="/admin/mall/goodstype/editSpec/#(data.id)" data-dialogbtn data-scroll="yes"  data-title="为商品类型【#(data.name??)】设置规格" data-area="80%,80%" class="jbolt_table_btn"><i class="fa fa-cogs c-info"></i></a>
+</td>
+<td>
+<a  tooltip    href="/admin/mall/goodstype/editAttr/#(data.id)" data-dialogbtn data-scroll="yes"  data-title="为商品类型【#(data.name??)】设置属性" data-area="80%,80%" class="jbolt_table_btn"><i class="fa fa-cogs c-info"></i></a>
+</td>
+<td>
+<a  tooltip    href="/admin/mall/goodstype/editBrand/#(data.id)" data-dialogbtn data-scroll="yes"  data-title="为商品类型【#(data.name??)】关联品牌" data-area="80%,80%" class="jbolt_table_btn"><i class="fa fa-cogs c-info"></i></a>
+</td>
+<td><img src="#(data.enable?'assets/img/on.png':'assets/img/off.png')" data-switchbtn  data-url="/admin/mall/goodstype/toggleEnable/#(data.id)"/></td>
+<td>
+<a  tooltip  title="编辑"  href="/admin/mall/goodstype/edit/#(data.id)" data-scroll="yes" data-handler="refreshPjaxContainer" data-title="编辑" data-area="400,260" class="jbolt_table_editbtn"><i class="fa fa-pencil c-primary"></i></a>
+<a  tooltip  title="删除"  href="/admin/mall/goodstype/delete/#(data.id)" data-handler="removeTr" class="jbolt_table_delbtn"><i class="fa fa-remove c-danger"></i></a>
+</td>
+<td></td>
+</tr>
+#end
+</tbody>
+</table>	
+</div>
+</div>
+#end
+#define js()
+<script>
+$(function(){
+});
+</script>
+#end
+

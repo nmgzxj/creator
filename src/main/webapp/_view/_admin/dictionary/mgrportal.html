@@ -1,0 +1,48 @@
+<a tooltip data-title="新增分类【#(dictionaryType.name??)】下的数据项" data-handler="refreshPortal" data-portal="dictionaryPortal" class="jbolt_table_addbtn pull-right text-primary" data-area="400,260" style="position: absolute;top:10px;right:10px" href="/admin/dictionary/add/#(dictionaryType.id)-0"><i class="fa fa-plus"></i></a>
+<table class="table table-bordered table-hover #((dictionaryType.modeLevel==cn.jbolt.common.model.DictionaryType::MODE_LEVEL_2)?"":"table-striped")  table-center">
+<thead>
+<tr><th style="width: 60px">编号</th><th style="width:300px">名称</th><th  style="width: 150px">操作</th><th></th></tr>
+</thead>
+<tbody>
+#for(data:dictionaries)
+#if(dictionaryType.modeLevel==cn.jbolt.common.model.DictionaryType::MODE_LEVEL_2)
+<tr data-removekey="data_#(data.id)"  style="background-color: rgba(0,0,0,.05);">
+#else
+<tr data-removekey="data_#(data.id)" >
+#end
+<td>#(for.index+1)</td>
+#if(dictionaryType.modeLevel==cn.jbolt.common.model.DictionaryType::MODE_LEVEL_2)
+<td class="text-left">#(data.name)</td>
+<td class="text-right">
+<a tooltip data-title="添加二级领域" href="/admin/dictionary/addItem/#(data.typeId)-#(data.id)" data-handler="refreshPortal" data-portal="dictionaryPortal" data-title="添加#(pageTitle)-二级" data-area="400,360" class="jbolt_table_editbtn"><i class="fa fa-plus c-info"></i></a>
+<a tooltip data-title="编辑" href="/admin/dictionary/edit/#(data.typeId)-#(data.id)" data-handler="refreshPortal" data-portal="dictionaryPortal" data-title="编辑#(pageTitle)" data-area="400,260" class="jbolt_table_editbtn"><i class="fa fa-pencil c-primary"></i></a>
+<a tooltip data-title="删除" href="/admin/dictionary/delete/#(data.id)" data-removekey="data_#(data.id)"  data-handler="removeByKey" class="jbolt_table_delbtn"><i class="fa fa-remove c-danger"></i></a>
+</td>
+<td></td>
+#else
+<td>#(data.name)</td>
+<td>
+<a tooltip data-title="编辑" href="/admin/dictionary/edit/#(data.typeId)-#(data.id)" data-handler="refreshPortal" data-portal="dictionaryPortal" data-title="编辑#(pageTitle)" data-area="400,260" class="jbolt_table_editbtn"><i class="fa fa-pencil c-primary"></i></a>
+<a tooltip data-title="删除" href="/admin/dictionary/delete/#(data.id)" data-removekey="data_#(data.id)"  data-handler="removeByKey" class="jbolt_table_delbtn"><i class="fa fa-remove c-danger"></i></a>
+</td>
+<td></td>
+#end
+
+</tr>
+#if(dictionaryType.modeLevel==cn.jbolt.common.model.DictionaryType::MODE_LEVEL_2 && data.items??)
+#for(item:data.items)
+<tr data-removekey="data_#(data.id)" >
+<td></td>
+<td class="text-left"><span class="text-danger" style="margin-left: 20px">∟</span>#(item.name)</td>
+<td class="text-right">
+<a tooltip data-title="编辑" href="/admin/dictionary/editItem/#(item.type)-#(item.id)" data-handler="refreshPortal" data-portal="dictionaryPortal" data-title="编辑#(pageTitle)" data-area="400,360" class="jbolt_table_editbtn"><i class="fa fa-pencil c-primary"></i></a>
+<a tooltip data-title="删除" href="/admin/dictionary/delete/#(item.id)"    data-handler="removeTr" class="jbolt_table_delbtn"><i class="fa fa-remove c-danger"></i></a>
+</td>
+<td></td>
+</tr>
+#end
+#end
+
+#end
+</tbody>
+</table>

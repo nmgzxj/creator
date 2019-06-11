@@ -1,0 +1,45 @@
+#@adminDialogLayout()
+#define main()
+<div class="jbolt_page">
+<div class="jbolt_page_content">
+<div class="alert alert-warning">请查看demo/btn.html中的js部分代码，看如何操作dialog上的btn</div>
+<form onsubmit="return false;" id="btnForm" action="/demo/btn" method="post">
+	<div class="form-group row">
+		<label class="col-2 col-form-label">请输入</label>
+		<div class="col-8">
+			<input type="text" autocomplete="off"  class="form-control" data-rule="required" placeholder="请输入名称" data-tips="请输入名称" maxlength="20" name="btnname" >
+		</div>
+	</div>
+	
+	</form>
+</div>
+</div>
+#end
+
+#define js()
+<script type="text/javascript">
+//改变原有确定按钮的title为-提交
+changeParentLayerDialogBtnTitle(0,"提交");
+//改变原有关闭按钮的title为-算了
+changeParentLayerDialogBtnTitle(1,"算了");
+//增加一个按钮-同意
+addParentLayerDialogBtn("同意","lay_success",function(){
+	LayerMsgBox.confirm("确认同意此申请?",function(){
+		alert("执行同意操作");
+		})
+});
+
+//增加一个按钮-不同意
+addParentLayerDialogBtn("不同意","lay_danger",function(){
+	LayerMsgBox.confirm("确认不同意此申请?",function(){
+		alert("执行不同意操作");
+		})
+});
+
+//隐藏一个不需要的按钮
+//hideParentLayerDialogBtn(0);
+//隐藏所有按钮
+//hideAllParentLayerDialogBtn();
+</script>
+#include("/_view/_admin/common/_formjs.html",formId="btnForm")
+#end

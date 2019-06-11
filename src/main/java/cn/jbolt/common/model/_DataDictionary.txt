@@ -1,0 +1,633 @@
+Table: brand
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         |         
+ name        | VARCHAR(255) | YES  |     |         |         
+ enable      | BIT(1)       | YES  |     |         |         
+ sortRank    | INT(10)      | YES  |     |         | 排序      
+ url         | VARCHAR(255) | YES  |     |         | 网址      
+ logo        | VARCHAR(255) | YES  |     |         | logo地址  
+ remark      | VARCHAR(255) | YES  |     |         | 备注描述    
+ englishName | VARCHAR(255) | YES  |     |         | 英文名     
+-------------+--------------+------+-----+---------+---------
+
+Table: change_log
+----------------+--------------+------+-----+---------+---------
+ Field          | Type         | Null | Key | Default | Remarks 
+----------------+--------------+------+-----+---------+---------
+ id             | INT(10)      | NO   | PRI |         |         
+ content        | TEXT(65535)  | YES  |     |         |         
+ createTime     | DATETIME(19) | YES  |     |         |         
+ jboltVersionId | INT(10)      | YES  |     |         |         
+----------------+--------------+------+-----+---------+---------
+
+Table: dictionary
+----------+--------------+------+-----+---------+---------
+ Field    | Type         | Null | Key | Default | Remarks 
+----------+--------------+------+-----+---------+---------
+ id       | INT(10)      | NO   | PRI |         | 字典ID主键  
+ name     | VARCHAR(255) | YES  |     |         | 名称      
+ typeId   | INT(10)      | YES  |     |         | 类型      
+ pid      | INT(10)      | YES  |     |         | 父类ID    
+ sortRank | INT(10)      | YES  |     |         | 排序      
+----------+--------------+------+-----+---------+---------
+
+Table: dictionary_type
+-----------+--------------+------+-----+---------+---------
+ Field     | Type         | Null | Key | Default | Remarks 
+-----------+--------------+------+-----+---------+---------
+ id        | INT(10)      | NO   | PRI |         | 主键ID    
+ name      | VARCHAR(255) | YES  |     |         |         
+ modeLevel | INT(10)      | YES  |     |         | 模式层级 是单级别 还是多级别
+ typeKey   | VARCHAR(255) | YES  |     |         | 字典类型的标识Key
+-----------+--------------+------+-----+---------+---------
+
+Table: download_log
+--------------+--------------+------+-----+---------+---------
+ Field        | Type         | Null | Key | Default | Remarks 
+--------------+--------------+------+-----+---------+---------
+ id           | INT(10)      | NO   | PRI |         |         
+ ipaddress    | VARCHAR(255) | YES  |     |         |         
+ downloadType | INT(10)      | YES  |     |         |         
+ downloadTime | DATETIME(19) | YES  |     |         |         
+--------------+--------------+------+-----+---------+---------
+
+Table: global_config
+--------------+--------------+------+-----+---------+---------
+ Field        | Type         | Null | Key | Default | Remarks 
+--------------+--------------+------+-----+---------+---------
+ id           | INT(10)      | NO   | PRI |         |         
+ configKey    | VARCHAR(255) | YES  |     |         |         
+ configValue  | VARCHAR(255) | YES  |     |         |         
+ createTime   | DATETIME(19) | YES  |     |         |         
+ userId       | INT(10)      | YES  |     |         |         
+ updateTime   | DATETIME(19) | YES  |     |         |         
+ updateUserId | INT(10)      | YES  |     |         |         
+ name         | VARCHAR(255) | YES  |     |         |         
+--------------+--------------+------+-----+---------+---------
+
+Table: goods
+-------------------+--------------+------+-----+---------+---------
+ Field             | Type         | Null | Key | Default | Remarks 
+-------------------+--------------+------+-----+---------+---------
+ id                | INT(10)      | NO   | PRI |         | 主键ID    
+ name              | VARCHAR(255) | YES  |     |         |         
+ price             | DECIMAL(10)  | YES  |     |         |         
+ originalPrice     | DECIMAL(10)  | YES  |     |         |         
+ mainImage         | VARCHAR(255) | YES  |     |         | 主图      
+ extraImages       | TEXT(65535)  | YES  |     |         |         
+ contentType       | INT(10)      | YES  |     |         | 描述类型 是富文本还是分开的图片 文本段数据
+ groups            | VARCHAR(255) | YES  |     |         | 商品组ID   
+ stockCount        | INT(10)      | YES  |     |         |         
+ subTitle          | VARCHAR(255) | YES  |     |         | 二级标题    
+ isMultispec       | BIT(1)       | YES  |     |         | 是否是多规格  
+ limitCount        | INT(10)      | YES  |     | 0       | 限购数量 0位不限制
+ locationLabel     | VARCHAR(255) | YES  |     |         | 所在地     
+ isProvideInvoices | BIT(1)       | YES  |     | b'0'    | 是否提供发票  
+ isGuarantee       | BIT(1)       | YES  |     | b'0'    | 保修      
+ onSale            | BIT(1)       | YES  |     |         | 是否上架    
+ underTime         | DATETIME(19) | YES  |     |         | 下架时间    
+ onSaleUserId      | INT(10)      | YES  |     |         | 上架操作人   
+ onSaleTime        | DATETIME(19) | YES  |     |         | 上架时间    
+ createUserId      | INT(10)      | YES  |     |         | 创建人     
+ createTime        | DATETIME(19) | YES  |     |         | 创建时间    
+ updateTime        | DATETIME(19) | YES  |     |         | 最后更新时间  
+ updateUserId      | INT(10)      | YES  |     |         | 最后更新人   
+ goodsUnit         | INT(10)      | YES  |     |         | 商品单位    
+ realSaleCount     | INT(10)      | YES  |     |         | 真实销量    
+ showSaleCount     | INT(10)      | YES  |     |         | 展示营销销量  
+ typeId            | INT(10)      | YES  |     |         | 商品类型    
+ brandId           | INT(10)      | YES  |     |         | 品牌ID    
+ isHot             | BIT(1)       | YES  |     |         | 热销      
+ isRecommend       | BIT(1)       | YES  |     |         | 推荐      
+ fcategoryKey      | VARCHAR(255) | YES  |     |         | 前台分类KEY 
+ bcategoryKey      | VARCHAR(255) | YES  |     |         | 后台分类KEY 
+ bcategoryId       | INT(10)      | YES  |     |         | 后端分类ID  
+ fcategoryId       | INT(10)      | YES  |     |         | 前端分类ID  
+ underUserId       | INT(10)      | YES  |     |         | 下架处理人   
+ isDelete          | BIT(1)       | YES  |     | b'0'    | 是否已删除   
+ goodsNo           | VARCHAR(255) | YES  |     |         | 商品编号    
+-------------------+--------------+------+-----+---------+---------
+
+Table: goods_attr
+---------+--------------+------+-----+---------+---------
+ Field   | Type         | Null | Key | Default | Remarks 
+---------+--------------+------+-----+---------+---------
+ id      | INT(10)      | NO   | PRI |         | 主键ID    
+ name    | VARCHAR(255) | YES  |     |         | 属性名     
+ value   | VARCHAR(255) | YES  |     |         | 属性值     
+ goodsId | INT(10)      | YES  |     |         |         
+---------+--------------+------+-----+---------+---------
+
+Table: goods_back_category
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         | 主键ID    
+ name        | VARCHAR(255) | YES  |     |         |         
+ pid         | INT(10)      | YES  |     |         |         
+ typeId      | INT(10)      | YES  |     |         |         
+ enable      | BIT(1)       | YES  |     | b'0'    | 启用 禁用   
+ categoryKey | VARCHAR(255) | YES  |     |         | 所有上级和自身ID串联起来
+ sortRank    | INT(10)      | YES  |     |         | 排序      
+-------------+--------------+------+-----+---------+---------
+
+Table: goods_element_content
+----------+--------------+------+-----+---------+---------
+ Field    | Type         | Null | Key | Default | Remarks 
+----------+--------------+------+-----+---------+---------
+ id       | INT(10)      | NO   | PRI |         | 关联商品ID  
+ goodsId  | INT(10)      | YES  |     |         |         
+ type     | INT(10)      | YES  |     |         |         
+ content  | VARCHAR(255) | YES  |     |         | 内容      
+ sortRank | INT(10)      | YES  |     |         | 顺序      
+ skuId    | INT(10)      | YES  |     |         |         
+----------+--------------+------+-----+---------+---------
+
+Table: goods_group
+------------+--------------+------+-----+---------+---------
+ Field      | Type         | Null | Key | Default | Remarks 
+------------+--------------+------+-----+---------+---------
+ id         | INT(10)      | NO   | PRI |         | 主键ID    
+ name       | VARCHAR(255) | YES  |     |         | 名称      
+ rank       | VARCHAR(255) | YES  |     |         | 排序      
+ icon       | VARCHAR(255) | YES  |     |         | 图标      
+ goodsCount | INT(10)      | YES  |     |         | 商品数量    
+ enable     | BIT(1)       | YES  |     |         | 是否启用    
+------------+--------------+------+-----+---------+---------
+
+Table: goods_html_content
+--------------+--------------+------+-----+---------+---------
+ Field        | Type         | Null | Key | Default | Remarks 
+--------------+--------------+------+-----+---------+---------
+ id           | INT(10)      | NO   | PRI |         | 主键ID    
+ goodsId      | INT(10)      | YES  |     |         | 关联商品ID  
+ content      | TEXT(65535)  | YES  |     |         | 详情内容    
+ skuId        | INT(10)      | YES  |     |         |         
+ updateUserId | INT(10)      | YES  |     |         |         
+ updateTime   | DATETIME(19) | YES  |     |         |         
+--------------+--------------+------+-----+---------+---------
+
+Table: goods_type
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         | 主键ID    
+ name        | VARCHAR(255) | YES  |     |         |         
+ enable      | BIT(1)       | YES  |     |         | 是否启用    
+ sortRank    | INT(10)      | YES  |     |         | 顺序      
+ isLinkBrand | BIT(1)       | YES  |     |         | 是否关联的品牌 
+ isLinkSpec  | BIT(1)       | YES  |     |         | 是否关联了规格 
+-------------+--------------+------+-----+---------+---------
+
+Table: goods_type_brand
+-------------+---------+------+-----+---------+---------
+ Field       | Type    | Null | Key | Default | Remarks 
+-------------+---------+------+-----+---------+---------
+ id          | INT(10) | NO   | PRI |         |         
+ goodsTypeId | INT(10) | YES  |     |         |         
+ brandId     | INT(10) | YES  |     |         |         
+-------------+---------+------+-----+---------+---------
+
+Table: jbolt_file
+------------+------------------+------+-----+---------+---------
+ Field      | Type             | Null | Key | Default | Remarks 
+------------+------------------+------+-----+---------+---------
+ id         | INT(10)          | NO   | PRI |         |         
+ localPath  | VARCHAR(255)     | YES  |     |         | 保存物理地址  
+ localUrl   | VARCHAR(255)     | YES  |     |         | 本地网址    
+ cdnUrl     | VARCHAR(255)     | YES  |     |         | 外部CDN地址 
+ createTime | DATETIME(19)     | YES  |     |         | 上传时间    
+ userId     | INT(10)          | YES  |     |         | 上传用户    
+ fileName   | VARCHAR(255)     | YES  |     |         | 文件名     
+ fileType   | INT(10)          | YES  |     |         | 文件类型 图片 附件 视频 音频
+ fileSize   | INT UNSIGNED(10) | YES  |     |         | 文件大小    
+ fileSuffix | VARCHAR(255)     | YES  |     |         | 后缀名     
+------------+------------------+------+-----+---------+---------
+
+Table: jbolt_version
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         |         
+ version     | VARCHAR(255) | YES  |     |         |         
+ publishTime | DATETIME(19) | YES  |     |         |         
+ isNew       | BIT(1)       | YES  |     | b'0'    |         
+ createTime  | DATETIME(19) | YES  |     |         |         
+ userId      | INT(10)      | YES  |     |         |         
+-------------+--------------+------+-----+---------+---------
+
+Table: jbolt_version_file
+----------------+--------------+------+-----+---------+---------
+ Field          | Type         | Null | Key | Default | Remarks 
+----------------+--------------+------+-----+---------+---------
+ id             | INT(10)      | NO   | PRI |         |         
+ url            | VARCHAR(255) | YES  |     |         |         
+ jboltVersionId | INT(10)      | YES  |     |         |         
+----------------+--------------+------+-----+---------+---------
+
+Table: order
+-------------------+--------------+------+-----+---------+---------
+ Field             | Type         | Null | Key | Default | Remarks 
+-------------------+--------------+------+-----+---------+---------
+ id                | INT(10)      | NO   | PRI |         | 主键ID    
+ orderNo           | VARCHAR(255) | YES  |     |         |         
+ createTime        | DATETIME(19) | YES  |     |         | 下单时间    
+ wxuserId          | INT(10)      | YES  |     |         |         
+ wxuserName        | VARCHAR(255) | YES  |     |         | 冗余当时的微信昵称
+ updateTime        | DATETIME(19) | YES  |     |         | 更新时间    
+ paymentTime       | DATETIME(19) | YES  |     |         | 付款时间   
+ consignTime       | DATETIME(19) | YES  |     |         | 发货时间    
+ finishTime        | DATETIME(19) | YES  |     |         | 交易完成时间  
+ closeTime         | DATETIME(19) | YES  |     |         | 订单关闭时间  
+ buyerMessage      | VARCHAR(255) | YES  |     |         | 卖家留言    
+ buyerNickname     | VARCHAR(255) | YES  |     |         |         
+ buyerRate         | BIT(1)       | YES  |     |         | 买家是否已经评价
+ state             | INT(10)      | YES  |     |         | 订单状态 待付款 已付款 已发货 订单完成 订单关闭
+ goodsAmount       | DECIMAL(10)  | YES  |     |         | 运费      
+ postFee           | DECIMAL(10)  | YES  |     |         |         
+ paymentAmount     | DECIMAL(10)  | YES  |     |         | 应付      
+ paymentType       | INT(10)      | YES  |     |         | 支付类型 在线支付 货到付款
+ onlinePaymentType | INT(10)      | YES  |     |         | 在线支付选择了谁
+-------------------+--------------+------+-----+---------+---------
+
+Table: order_item
+---------------+--------------+------+-----+---------+---------
+ Field         | Type         | Null | Key | Default | Remarks 
+---------------+--------------+------+-----+---------+---------
+ id            | INT(10)      | NO   | PRI |         | 主键ID    
+ orderId       | INT(10)      | YES  |     |         | 订单ID    
+ goodsId       | INT(10)      | YES  |     |         |         
+ goodsName     | VARCHAR(255) | YES  |     |         | 商品标题    
+ goodsSubTitle | VARCHAR(255) | YES  |     |         | 商品二级促销信息
+ price         | DECIMAL(10)  | YES  |     |         | 单价      
+ goodsCount    | INT(10)      | YES  |     |         | 购买数量    
+ totalFee      | DECIMAL(10)  | YES  |     |         | 总价      
+ goodsImage    | VARCHAR(255) | YES  |     |         | 商品图     
+---------------+--------------+------+-----+---------+---------
+
+Table: order_shipping
+----------------+--------------+------+-----+---------+---------
+ Field          | Type         | Null | Key | Default | Remarks 
+----------------+--------------+------+-----+---------+---------
+ id             | INT(10)      | NO   | PRI |         | 主键ID    
+ orderId        | INT(10)      | YES  |     |         |         
+ name           | VARCHAR(255) | YES  |     |         | 收件人姓名   
+ phone          | VARCHAR(255) | YES  |     |         | 收件人固话   
+ mobile         | VARCHAR(255) | YES  |     |         | 移动电话    
+ wxuserNickname | VARCHAR(255) | YES  |     |         | 微信昵称    
+ province       | VARCHAR(255) | YES  |     |         | 省份      
+ city           | VARCHAR(255) | YES  |     |         | 城市      
+ county         | VARCHAR(255) | YES  |     |         | 区县      
+ address        | VARCHAR(255) | YES  |     |         | 收件具体地址  
+ zipcode        | VARCHAR(255) | YES  |     |         | 邮政编码    
+ createTime     | DATETIME(19) | YES  |     |         |         
+ updateTime     | DATETIME(19) | YES  |     |         |         
+ updateUserId   | INT(10)      | YES  |     |         |         
+----------------+--------------+------+-----+---------+---------
+
+Table: role
+-------+-------------+------+-----+---------+---------
+ Field | Type        | Null | Key | Default | Remarks 
+-------+-------------+------+-----+---------+---------
+ id    | INT(10)     | NO   | PRI |         | 主键      
+ name  | VARCHAR(20) | NO   |     |         | 名称      
+-------+-------------+------+-----+---------+---------
+
+Table: role_permission
+--------------+---------+------+-----+---------+---------
+ Field        | Type    | Null | Key | Default | Remarks 
+--------------+---------+------+-----+---------+---------
+ id           | INT(10) | NO   | PRI |         | 主键      
+ roleId       | INT(10) | NO   |     |         | 角色ID    
+ permissionId | INT(10) | YES  |     |         | 资源权限ID  
+--------------+---------+------+-----+---------+---------
+
+Table: shelf
+---------------+--------------+------+-----+---------+---------
+ Field         | Type         | Null | Key | Default | Remarks 
+---------------+--------------+------+-----+---------+---------
+ id            | INT(10)      | NO   | PRI |         | 主键ID    
+ name          | VARCHAR(255) | YES  |     |         |         
+ enable        | BIT(1)       | YES  |     | b'0'    |         
+ createTime    | DATETIME(19) | YES  |     |         | 创建时间    
+ createUserId  | INT(10)      | YES  |     |         | 创建人     
+ publishUserId | INT(10)      | YES  |     |         | 发布上线人   
+ publishTime   | DATETIME(19) | YES  |     |         | 发布上线时间  
+ shareImg      | VARCHAR(255) | YES  |     |         | 分享图     
+ subTitle      | VARCHAR(255) | YES  |     |         | 分享标题在name之后
+ updateTime    | DATETIME(19) | YES  |     |         | 最后修改时间  
+ updateUserId  | INT(10)      | YES  |     |         | 最后修改人   
+---------------+--------------+------+-----+---------+---------
+
+Table: shelf_activity
+----------------+--------------+------+-----+---------+---------
+ Field          | Type         | Null | Key | Default | Remarks 
+----------------+--------------+------+-----+---------+---------
+ id             | INT(10)      | NO   | PRI |         | 主键ID    
+ image          | VARCHAR(255) | YES  |     |         | 图片地址    
+ url            | VARCHAR(255) | YES  |     |         | 打开地址    
+ openType       | INT(10)      | YES  |     |         | 打开方式 网页还是商品内页 还是分类 还是
+ shelfElementId | INT(10)      | YES  |     |         |         
+ shelfId        | INT(10)      | YES  |     |         |         
+----------------+--------------+------+-----+---------+---------
+
+Table: shelf_carousel
+---------------+--------------+------+-----+---------+---------
+ Field         | Type         | Null | Key | Default | Remarks 
+---------------+--------------+------+-----+---------+---------
+ id            | INT(10)      | NO   | PRI |         | 主键ID    
+ imgurl        | VARCHAR(255) | YES  |     |         | 图片地址    
+ openType      | INT(10)      | YES  |     |         | 打开模式 内置资源地址，网页地址
+ url           | VARCHAR(255) | YES  |     |         |         
+ shelfId       | INT(10)      | YES  |     |         | 所属货架    
+ shelfElemetId | INT(10)      | YES  |     |         | 货架元素ID  
+ sortRank      | INT(10)      | YES  |     |         | 顺序      
+---------------+--------------+------+-----+---------+---------
+
+Table: shelf_element
+----------+--------------+------+-----+---------+---------
+ Field    | Type         | Null | Key | Default | Remarks 
+----------+--------------+------+-----+---------+---------
+ id       | INT(10)      | NO   | PRI |         | 主键ID    
+ type     | INT(10)      | YES  |     |         | 类型 轮播 楼层 分类 活动等
+ width    | VARCHAR(255) | YES  |     |         | 宽度      
+ height   | VARCHAR(255) | YES  |     |         | 高度      
+ sortRank | INT(10)      | YES  |     |         | 顺序      
+----------+--------------+------+-----+---------+---------
+
+Table: shelf_goods_floor
+----------------+--------------+------+-----+---------+---------
+ Field          | Type         | Null | Key | Default | Remarks 
+----------------+--------------+------+-----+---------+---------
+ id             | INT(10)      | NO   | PRI |         | 主键ID    
+ groupId        | INT(10)      | YES  |     |         |         
+ title          | VARCHAR(255) | YES  |     |         | 显示标题 默认是商品组的 可以改
+ url            | VARCHAR(255) | YES  |     |         | 点击进入页面链接
+ goodsCount     | INT(10)      | YES  |     |         | 出几个商品   
+ columnCount    | INT(10)      | YES  |     |         | 列数      
+ sortRank       | INT(10)      | YES  |     |         | 在多个floor中的排序
+ shelfId        | INT(10)      | YES  |     |         |         
+ shelfElementId | INT(10)      | YES  |     |         |         
+----------------+--------------+------+-----+---------+---------
+
+Table: shelf_goods_group
+----------------+--------------+------+-----+---------+---------
+ Field          | Type         | Null | Key | Default | Remarks 
+----------------+--------------+------+-----+---------+---------
+ id             | INT(10)      | NO   | PRI |         | 主键ID    
+ name           | VARCHAR(255) | YES  |     |         |         
+ icon           | VARCHAR(255) | YES  |     |         | 图标      
+ imgurl         | VARCHAR(255) | YES  |     |         | 分类下的顶部修饰图
+ subTitle       | VARCHAR(255) | YES  |     |         | 二级标题    
+ sortRank       | INT(10)      | YES  |     |         | 顺序      
+ shelfId        | INT(10)      | YES  |     |         |         
+ shelfElementId | INT(10)      | YES  |     |         |         
+----------------+--------------+------+-----+---------+---------
+
+Table: sku
+---------------+--------------+------+-----+---------+---------
+ Field         | Type         | Null | Key | Default | Remarks 
+---------------+--------------+------+-----+---------+---------
+ id            | INT(10)      | NO   | PRI |         |         
+ skuKey        | VARCHAR(255) | YES  |     |         | 规格编码    
+ skuName       | VARCHAR(255) | YES  |     |         |         
+ name          | VARCHAR(255) | YES  |     |         | 规格名称    
+ goodsId       | INT(10)      | YES  |     |         | 商品ID    
+ typeId        | INT(10)      | YES  |     |         | 类型ID    
+ price         | DECIMAL(10)  | YES  |     |         | 单价      
+ originalPrice | DECIMAL(10)  | YES  |     |         | 原价      
+ stockCount    | VARCHAR(255) | YES  |     |         |         
+ subTitle      | VARCHAR(255) | YES  |     |         | 营销语     
+ onSale        | BIT(1)       | YES  |     |         | 是否上架    
+ sellout       | BIT(1)       | YES  |     |         | 售罄      
+ realSaleCount | INT(10)      | YES  |     |         | 真实销量    
+ showSaleCount | INT(10)      | YES  |     |         | 展示营销销量  
+ mainImage     | VARCHAR(255) | YES  |     |         | 主图      
+ extraImages   | TEXT(65535)  | YES  |     |         |         
+ isHot         | BIT(1)       | YES  |     |         | 热销      
+ isRecommend   | BIT(1)       | YES  |     |         | 推荐      
+ needContent   | BIT(1)       | YES  |     |         | 是否需要详情描述
+ contentType   | INT(10)      | YES  |     |         | 描述类型 是富文本还是分开的图片 文本段数据
+ underTime     | DATETIME(19) | YES  |     |         | 下架时间    
+ onSaleTime    | DATETIME(19) | YES  |     |         | 上架时间    
+ createUserId  | INT(10)      | YES  |     |         | 创建人     
+ createTime    | DATETIME(19) | YES  |     |         | 创建时间    
+ updateTime    | DATETIME(19) | YES  |     |         | 最后更新时间  
+ updateUserId  | INT(10)      | YES  |     |         | 最后更新人   
+---------------+--------------+------+-----+---------+---------
+
+Table: sku_item
+------------+---------+------+-----+---------+---------
+ Field      | Type    | Null | Key | Default | Remarks 
+------------+---------+------+-----+---------+---------
+ id         | INT(10) | NO   | PRI |         | 主键ID    
+ skuId      | INT(10) | YES  |     |         |         
+ goodsId    | INT(10) | YES  |     |         |         
+ typeId     | INT(10) | YES  |     |         |         
+ specId     | INT(10) | YES  |     |         |         
+ specItemId | INT(10) | YES  |     |         |         
+------------+---------+------+-----+---------+---------
+
+Table: spec
+-------+--------------+------+-----+---------+---------
+ Field | Type         | Null | Key | Default | Remarks 
+-------+--------------+------+-----+---------+---------
+ id    | INT(10)      | NO   | PRI |         |         
+ name  | VARCHAR(255) | YES  |     |         |         
+-------+--------------+------+-----+---------+---------
+
+Table: spec_item
+--------+--------------+------+-----+---------+---------
+ Field  | Type         | Null | Key | Default | Remarks 
+--------+--------------+------+-----+---------+---------
+ id     | INT(10)      | NO   | PRI |         | 主键ID    
+ name   | VARCHAR(255) | YES  |     |         | 选项名     
+ specId | INT(10)      | YES  |     |         | 所属规格    
+--------+--------------+------+-----+---------+---------
+
+Table: system_log
+------------+--------------+------+-----+---------+---------
+ Field      | Type         | Null | Key | Default | Remarks 
+------------+--------------+------+-----+---------+---------
+ id         | INT(10)      | NO   | PRI |         | 主键      
+ title      | VARCHAR(255) | YES  |     |         | 标题      
+ type       | INT(10)      | YES  |     |         | 操作类型 删除 更新 新增
+ url        | VARCHAR(255) | YES  |     |         | 连接对象详情地址
+ userId     | INT(10)      | YES  |     |         | 操作人     
+ userName   | VARCHAR(40)  | YES  |     |         | 用户姓名    
+ targetType | INT(10)      | YES  |     |         | 操作内容的类型 项目 文章 人物等
+ createTime | DATETIME(19) | YES  |     |         | 操作发生时间  
+ targetId   | INT(10)      | YES  |     |         |         
+ openType   | INT(10)      | YES  |     |         | url还是dialog
+------------+--------------+------+-----+---------+---------
+
+Table: update_libs
+-----------+--------------+------+-----+---------+---------
+ Field     | Type         | Null | Key | Default | Remarks 
+-----------+--------------+------+-----+---------+---------
+ id        | INT(10)      | NO   | PRI |         |         
+ url       | VARCHAR(255) | YES  |     |         |         
+ target    | VARCHAR(255) | YES  |     |         |         
+ deleteAll | BIT(1)       | YES  |     | b'1'    |         
+ must      | BIT(1)       | YES  |     | b'0'    |         
+-----------+--------------+------+-----+---------+---------
+
+Table: user
+------------+--------------+------+-----+---------+---------
+ Field      | Type         | Null | Key | Default | Remarks 
+------------+--------------+------+-----+---------+---------
+ id         | INT(10)      | NO   | PRI |         | 主键      
+ username   | VARCHAR(20)  | NO   |     |         | 用户名     
+ password   | VARCHAR(128) | NO   |     |         |         
+ name       | VARCHAR(20)  | NO   |     |         | 姓名      
+ avatar     | VARCHAR(255) | YES  |     |         | 头像      
+ createTime | DATETIME(19) | YES  |     |         | 创建时间    
+ phone      | VARCHAR(40)  | YES  |     |         | 手机号     
+ enable     | BIT(1)       | YES  |     | b'1'    | 启用      
+ sex        | VARCHAR(10)  | YES  |     |         | 性别      
+ pinyin     | VARCHAR(255) | YES  |     |         |         
+ roles      | VARCHAR(255) | YES  |     |         | 角色 一对多  
+------------+--------------+------+-----+---------+---------
+
+Table: demotable
+--------------+--------------+------+-----+---------+---------
+ Field        | Type         | Null | Key | Default | Remarks 
+--------------+--------------+------+-----+---------+---------
+ id           | INT(10)      | NO   | PRI |         |         
+ demoDate     | DATE(10)     | YES  |     |         |         
+ demoTime     | TIME(8)      | YES  |     |         |         
+ demoDateTime | DATETIME(19) | YES  |     |         |         
+ demoWeek     | VARCHAR(255) | YES  |     |         |         
+ demoMonth    | VARCHAR(255) | YES  |     |         |         
+--------------+--------------+------+-----+---------+---------
+
+Table: wechat_article
+--------------+--------------+------+-----+---------+---------
+ Field        | Type         | Null | Key | Default | Remarks 
+--------------+--------------+------+-----+---------+---------
+ id           | INT(10)      | NO   | PRI |         | 主键ID    
+ title        | VARCHAR(255) | YES  |     |         |         
+ content      | VARCHAR(255) | YES  |     |         |         
+ createTime   | DATETIME(19) | YES  |     |         |         
+ userId       | INT(10)      | YES  |     |         |         
+ updateTime   | DATETIME(19) | YES  |     |         |         
+ updateUserId | INT(10)      | YES  |     |         |         
+ subTitle     | VARCHAR(255) | YES  |     |         |         
+ poster       | VARCHAR(255) | YES  |     |         |         
+ viewCount    | INT(10)      | YES  |     |         |         
+ mediaId      | VARCHAR(11)  | YES  |     |         | 微信图文素材ID
+ mpId         | INT(10)      | YES  |     |         | 来自哪个微信  
+ url          | VARCHAR(255) | YES  |     |         | 图文链接地址 
+ type         | INT(10)      | YES  |     |         | 本地图文 公众号图文素材 外部图文
+ remark       | VARCHAR(255) | YES  |     |         | 备注描述    
+--------------+--------------+------+-----+---------+---------
+
+Table: wechat_autoreply
+------------+--------------+------+-----+---------+---------
+ Field      | Type         | Null | Key | Default | Remarks 
+------------+--------------+------+-----+---------+---------
+ id         | INT(10)      | NO   | PRI |         |         
+ mpId       | INT(10)      | YES  |     | 0       | 哪个公众号的  
+ type       | INT(10)      | YES  |     | 0       | 类型 关注回复 无内容时回复 关键词回复
+ name       | VARCHAR(40)  | YES  |     |         | 规则名称    
+ replyType  | INT(10)      | YES  |     | 0       | 回复方式 是全部还是随机一条
+ createTime | DATETIME(19) | YES  |     |         |         
+ userId     | INT(10)      | YES  |     | 0       |         
+ enable     | BIT(1)       | YES  |     | b'0'    |         
+------------+--------------+------+-----+---------+---------
+
+Table: wechat_keywords
+-------------+-------------+------+-----+---------+---------
+ Field       | Type        | Null | Key | Default | Remarks 
+-------------+-------------+------+-----+---------+---------
+ id          | INT(10)     | NO   | PRI |         |         
+ mpId        | INT(10)     | YES  |     | 0       |         
+ name        | VARCHAR(40) | YES  |     |         |         
+ type        | INT(10)     | YES  |     | 0       | 模糊 全匹配  
+ autoReplyId | INT(10)     | YES  |     | 0       |         
+-------------+-------------+------+-----+---------+---------
+
+Table: wechat_reply_content
+-----------------+--------------+------+-----+---------+---------
+ Field           | Type         | Null | Key | Default | Remarks 
+-----------------+--------------+------+-----+---------+---------
+ id              | INT(10)      | NO   | PRI |         |         
+ type            | INT(10)      | YES  |     | 0       | 类型 图文 文字 图片 音频 视频
+ title           | VARCHAR(100) | YES  |     |         |         
+ content         | VARCHAR(255) | YES  |     |         |         
+ poster          | VARCHAR(255) | YES  |     |         |         
+ url             | VARCHAR(255) | YES  |     |         |         
+ autoReplyId     | INT(10)      | YES  |     | 0       |         
+ createTime      | DATETIME(19) | YES  |     |         |         
+ userId          | INT(10)      | YES  |     |         |         
+ wechatArticleId | INT(10)      | YES  |     |         |         
+ mediaId         | VARCHAR(255) | YES  |     |         | 关联数据    
+ mpId            | INT(10)      | YES  |     |         |         
+-----------------+--------------+------+-----+---------+---------
+
+Table: permission
+---------------+--------------+------+-----+---------+---------
+ Field         | Type         | Null | Key | Default | Remarks 
+---------------+--------------+------+-----+---------+---------
+ id            | INT(10)      | NO   | PRI |         | 主键      
+ title         | VARCHAR(40)  | NO   |     |         |         
+ pid           | INT(10)      | YES  |     | 0       |         
+ url           | VARCHAR(255) | YES  |     |         | 地址      
+ icons         | VARCHAR(40)  | YES  |     |         | 图标      
+ sortRank      | INT(10)      | YES  |     |         | 序号顺序    
+ level         | INT(10)      | YES  |     |         |         
+ permissionKey | VARCHAR(255) | YES  |     |         |         
+ isMenu        | BIT(1)       | YES  |     |         |         
+ isTargetBlank | BIT(1)       | YES  |     | b'0'    | 新窗口打开   
+---------------+--------------+------+-----+---------+---------
+
+Table: wechat_mpinfo
+-----------------+--------------+------+-----+---------+---------
+ Field           | Type         | Null | Key | Default | Remarks 
+-----------------+--------------+------+-----+---------+---------
+ id              | INT(10)      | NO   | PRI |         | 主键      
+ name            | VARCHAR(255) | YES  |     |         | 平台名称    
+ logo            | VARCHAR(255) | YES  |     |         | 头像LOGO  
+ createTime      | DATETIME(19) | YES  |     |         | 创建时间    
+ userId          | INT(10)      | YES  |     |         | 创建用户    
+ enable          | BIT(1)       | YES  |     | b'0'    | 是否启用    
+ updateTime      | DATETIME(19) | YES  |     |         | 最后更新时间  
+ updateUserId    | INT(10)      | YES  |     |         | 最近操作人   
+ brief           | VARCHAR(255) | YES  |     |         | 简介      
+ remark          | VARCHAR(255) | YES  |     |         | 备注      
+ type            | INT(10)      | YES  |     |         | 类型 订阅号、服务号、小程序、企业号
+ isAuthenticated | BIT(1)       | YES  |     | b'0'    | 是否已认证   
+ subjectType     | INT(10)      | YES  |     |         | 申请认证主体的类型 个人还是企业
+ wechatId        | VARCHAR(255) | YES  |     |         | 微信号     
+ qrcode          | VARCHAR(255) | YES  |     |         | 二维码     
+-----------------+--------------+------+-----+---------+---------
+
+Table: wechat_config
+-------------+--------------+------+-----+---------+---------
+ Field       | Type         | Null | Key | Default | Remarks 
+-------------+--------------+------+-----+---------+---------
+ id          | INT(10)      | NO   | PRI |         |         
+ mpId        | INT(10)      | YES  |     |         |         
+ configKey   | VARCHAR(255) | YES  |     |         |         
+ configValue | VARCHAR(255) | YES  |     |         |         
+ name        | VARCHAR(255) | YES  |     |         | 配置项名称   
+ type        | INT(10)      | YES  |     |         | 配置类型    
+-------------+--------------+------+-----+---------+---------
+
+Table: wechat_menu
+----------+--------------+------+-----+---------+---------
+ Field    | Type         | Null | Key | Default | Remarks 
+----------+--------------+------+-----+---------+---------
+ id       | INT(10)      | NO   | PRI |         |         
+ mpId     | INT(10)      | YES  |     | 0       |         
+ type     | VARCHAR(40)  | YES  |     |         |         
+ name     | VARCHAR(40)  | YES  |     |         |         
+ pid      | INT(10)      | YES  |     | 0       |         
+ sortRank | INT(10)      | YES  |     | 0       |         
+ value    | VARCHAR(255) | YES  |     |         |         
+ appId    | VARCHAR(255) | YES  |     |         | 小程序ID   
+ pagepath | VARCHAR(255) | YES  |     |         | 小程序path 
+----------+--------------+------+-----+---------+---------
+

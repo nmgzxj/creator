@@ -1,0 +1,19 @@
+<form onsubmit="return false;" id="dictionaryForm" action="#(action)" method="post">
+	#if(dictionary.id??)
+		<input type="hidden" name="dictionary.id" value="#(dictionary.id)" />
+	#end
+	#if(needPidSelect)
+	<div class="form-group">
+			<label>请选择上级</label>
+			<select id="parentDictionarySelect" class="form-control"  data-url="/admin/dictionary/select/#(typeId)"  name="dictionary.pid" data-autoload data-text="=请选择上级领域=" data-value="0" data-select="#(pid?? 0)"></select>
+		</div>
+	#end
+	<input type="hidden" name="dictionary.typeId" value="#(typeId)">
+	<div class="form-group">
+		<label>请输入名称</label>
+		<input type="text" autocomplete="off" autofocus="autofocus"  class="form-control" data-rule="required;len<=100;" data-tips="请输入名称 如有多个 用空格隔开" maxlength="100" name="dictionary.name" value="#(dictionary.name??)">
+	</div>
+</form>
+#define js()
+#include("/_view/_admin/common/_formjs.html",formId="dictionaryForm")
+#end

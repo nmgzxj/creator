@@ -1,0 +1,48 @@
+#@adminLayout()
+#define main()
+<div class="jbolt_page" data-key="#(pmkey)">
+<div class="jbolt_page_title">
+	<h1>基础数据管理</h1>
+</div>
+<div class="jbolt_page_content">
+<div class="row">
+<div class="card" style="width:400px;">
+  <div class="card-header">
+    数据分类
+    <a href="/admin/dictionarytype/add" tooltip class="pull-right" data-handler="refreshPortal" data-portal="dictionaryTypePortal" data-dialogbtn data-area="500,400" data-title="添加新数据分类"><i class="fa fa-plus text-primary"></i></a>
+  </div>
+   <div class="card-body" style="height:500px;overflow: auto">
+    #ajaxPortal("/admin/dictionarytype/mgr","dictionaryTypePortal",true)
+    </div>
+</div>
+<div  class="col">
+<div class="card" >
+  <div class="card-header">基础数据项 : <span id="selectDicTypeName" class="text-danger">未选</span></div>
+<div class="card-body">
+
+ #ajaxPortal("/admin/dictionary/mgr","dictionaryPortal",true)
+ </div>
+ </div>
+</div>
+</div>
+</div>
+</div>
+#end
+
+#define js()
+<script>
+	function readDictionarys(type,typeId,title){
+		$(".dictionaryTypes tr.active").removeClass("active");
+		$(type).parent().addClass("active");
+	  $("#dictionaryPortal").ajaxPortal(true,"/admin/dictionary/mgr/"+typeId,true);
+	  $("#selectDicTypeName").text(title);
+	}
+
+	function refreshAllPortal(){
+		$("#dictionaryTypePortal").ajaxPortal(true);
+		$("#dictionaryPortal").ajaxPortal(true);
+		}
+$(function(){
+})
+</script>
+#end
